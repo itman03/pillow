@@ -1,0 +1,24 @@
+from PIL import Image, ImageDraw, ImageFont
+import os
+
+
+pictures = [file for file in os.listdir() if file.endswith(('jpeg', 'png', 'jpg'))]
+for image in pictures:
+    pic = Image.open(image)
+    pic = pic.resize((1080, 1080))
+    pic = pic.convert("1")
+    width, height = pic.size
+
+    draw = ImageDraw.Draw(pic)
+    text = "Erlan"
+
+    font = ImageFont.truetype('arial.ttf', 55)
+    textwidth, textheight = draw.textsize(text, font)
+
+    margin = 5
+    x = width - textwidth - margin
+    y = height - textheight - margin
+
+    draw.text((x, y), text, font=font)
+
+    pic.save(image)
